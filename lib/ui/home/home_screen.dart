@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weather/ui/home/home_provider.dart';
 import 'package:weather/ui/search/search.dart';
 import 'package:weather/ui/setting/setting.dart';
 
@@ -11,6 +12,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String? cityName;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<HomeProvider>(context, listen: false).getDetail(cityName ?? '');
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 setState(() {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Setting();
+                    return const Setting();
                   },));
                 });
               },
@@ -34,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Search();
+                  return const Search();
                 },));
               },
               icon: const Icon(
@@ -45,64 +54,126 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         backgroundColor: Colors.indigo,
       ),
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                colors: <Color>[
-                  Colors.indigoAccent, Colors.lightBlueAccent],
-                stops: [0, 1],
-                begin: FractionalOffset.topCenter,
-                end: FractionalOffset.bottomCenter,
-                tileMode: TileMode.repeated)),
-        child: const SingleChildScrollView(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  height: 120,
-                ),
-                Text(
-                  'VietNam',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  'Update: 10:30 AM',
-                  style: TextStyle(color: Colors.white, fontSize: 15),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 74,
-                      child: Icon(
-                        Icons.sunny,
-                        size: 80,
-                        color: Colors.yellowAccent,
+      body: Consumer<HomeProvider>(builder: (context, value, child) {
+        return Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  colors: <Color>[
+                    Colors.indigoAccent, Colors.lightBlueAccent],
+                  stops: [0, 1],
+                  begin: FractionalOffset.topCenter,
+                  end: FractionalOffset.bottomCenter,
+                  tileMode: TileMode.repeated)),
+          child: const SingleChildScrollView(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    height: 120,
+                  ),
+                  Text(
+                     'VietNam',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'Update: 10:30 AM',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 74,
+                        child: Icon(
+                          Icons.sunny,
+                          size: 80,
+                          color: Colors.yellowAccent,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 40,),
-                    Text(
-                      "35",
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                    SizedBox(width: 20,),
-                    Text("Max: 30 \n Min: 25", style: TextStyle(color: Colors.white, fontSize: 15),)
-                  ],
-                ),
-                Text("Showers",style: TextStyle(fontSize: 30,color: Colors.white),)
-              ]),
-        ),
+                      SizedBox(width: 40,),
+                      Text(
+                        "35",
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      SizedBox(width: 20,),
+                      Text("Max: 30 \n Min: 25", style: TextStyle(color: Colors.white, fontSize: 15),)
+                    ],
+                  ),
+                  Text("Showers",style: TextStyle(fontSize: 30,color: Colors.white),)
+                ]),
+          ),
+        );
+      },
+        // child: Container(
+        //   height: double.infinity,
+        //   width: double.infinity,
+        //   decoration: const BoxDecoration(
+        //       gradient: LinearGradient(
+        //           colors: <Color>[
+        //             Colors.indigoAccent, Colors.lightBlueAccent],
+        //           stops: [0, 1],
+        //           begin: FractionalOffset.topCenter,
+        //           end: FractionalOffset.bottomCenter,
+        //           tileMode: TileMode.repeated)),
+        //   child: const SingleChildScrollView(
+        //     child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //         children: [
+        //           SizedBox(
+        //             height: 120,
+        //           ),
+        //           Text(
+        //             'VietNam',
+        //             style: TextStyle(
+        //                 color: Colors.white,
+        //                 fontSize: 20,
+        //                 fontWeight: FontWeight.bold),
+        //           ),
+        //           Text(
+        //             'Update: 10:30 AM',
+        //             style: TextStyle(color: Colors.white, fontSize: 15),
+        //           ),
+        //           SizedBox(
+        //             height: 40,
+        //           ),
+        //           Row(
+        //             mainAxisAlignment: MainAxisAlignment.center,
+        //             children: [
+        //               SizedBox(
+        //                 height: 74,
+        //                 child: Icon(
+        //                   Icons.sunny,
+        //                   size: 80,
+        //                   color: Colors.yellowAccent,
+        //                 ),
+        //               ),
+        //               SizedBox(width: 40,),
+        //               Text(
+        //                 "35",
+        //                 style: TextStyle(
+        //                     fontSize: 30,
+        //                     fontWeight: FontWeight.bold,
+        //                     color: Colors.white),
+        //               ),
+        //               SizedBox(width: 20,),
+        //               Text("Max: 30 \n Min: 25", style: TextStyle(color: Colors.white, fontSize: 15),)
+        //             ],
+        //           ),
+        //           Text("Showers",style: TextStyle(fontSize: 30,color: Colors.white),)
+        //         ]),
+        //   ),
+        // ),
       ),
     );
   }

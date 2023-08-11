@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weather/ui/search/search_provider.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});
@@ -10,11 +11,12 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   TextEditingController textController = TextEditingController();
-
+late SearchProvider searchProvider;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    searchProvider = Provider.of<SearchProvider>(context, listen: false);
   }
 
   @override
@@ -34,49 +36,30 @@ class _SearchState extends State<Search> {
           iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: Colors.indigo,
         ),
-        body: Row(children: [
-          Expanded(
-              child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: TextField(
-                    controller: textController,
-                    onChanged: (value) {
-                      setState(() {
-
-                      });
-                    },
-                    decoration: const InputDecoration(
-                        labelText: 'City'
-                    ),
-                  )
-              )),
-          IconButton(onPressed: () {
-            Navigator.pop(context, textController);
-          },
-            icon: const Icon(Icons.search),
-            key: const Key("searchPage_search_iconButton"),)
-        ]));
-
-    // child: Row(children: [
-    //   Expanded(
-    //       child: Padding(
-    //     padding: const EdgeInsets.all(8),
-    //     child: TextField(
-    //       controller: textController,
-    //       onChanged: (value) {
-    //
-    //       },
-    //       decoration: const InputDecoration(
-    //         labelText: 'City'
-    //       ),
-    //     )
-    //   )),
-    //   IconButton(onPressed: (){
-    //       Navigator.pop(context, textController);
-    //   }, icon: const Icon(Icons.search), key: const Key("searchPage_search_iconButton"), )
-    // ]),
-
-
+        body: Consumer<SearchProvider>(builder: (context, value, child) {
+          return Row(children: [
+            Expanded(
+                child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: TextField(
+                      controller: textController,
+                      onChanged: (searchKey) {
+                   //     searchProvider.search(searchKey);
+                      },
+                      decoration: const InputDecoration(
+                          labelText: 'City'
+                      ),
+                    )
+                )),
+            IconButton(onPressed: () async {
+              String cityName = textController.text;
+             await value.search(cityName);
+               Navigator.pop(context, cityName);
+            },
+              icon: const Icon(Icons.search),
+              key: const Key("searchPage_search_iconButton"),)
+          ]);
+        },
+        ));
   }
-
 }
