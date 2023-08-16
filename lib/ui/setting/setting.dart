@@ -22,13 +22,13 @@ class _SettingState extends State<Setting> {
         appBar: AppBar(
           title: const Text("Settings",
               style: TextStyle(color: Colors.white, fontSize: 20)),
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: Colors.indigo,
         ),
         body: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: ListTile(

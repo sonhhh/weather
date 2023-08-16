@@ -1,10 +1,19 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weather/api/data/api_latitude.dart';
+import 'package:weather/ui/home/home_provider.dart';
 import 'package:weather/ui/home/home_screen.dart';
+import 'package:weather/ui/search/search_provider.dart';
 
 void main() {
   runApp(
-    const MyApp(),
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context) => SearchProvider(Dio(), RestClient1(Dio()))),
+      ChangeNotifierProvider(create: (context) => HomeProvider(Dio()),)
+    ],
+      child:  MyApp(),
+    )
   );
 }
 
@@ -20,7 +29,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }
