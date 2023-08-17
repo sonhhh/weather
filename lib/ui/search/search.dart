@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+<<<<<<< HEAD
 import 'package:weather/api/data/results.dart';
 
+=======
+>>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66
 import 'package:weather/ui/search/search_provider.dart';
 
 class Search extends StatefulWidget {
@@ -19,7 +22,10 @@ late SearchProvider searchProvider;
     // TODO: implement initState
     super.initState();
     searchProvider = Provider.of<SearchProvider>(context, listen: false);
+<<<<<<< HEAD
     textController = TextEditingController();
+=======
+>>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66
   }
 
   @override
@@ -47,6 +53,10 @@ late SearchProvider searchProvider;
                     child: TextField(
                       controller: textController,
                       onChanged: (searchKey) {
+<<<<<<< HEAD
+=======
+                   //     searchProvider.search(searchKey);
+>>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66
                       },
                       decoration: const InputDecoration(
                           labelText: 'City'
@@ -55,6 +65,7 @@ late SearchProvider searchProvider;
                 )),
             IconButton(onPressed: () async {
               String cityName = textController.text;
+<<<<<<< HEAD
               await value.search(cityName);
               Result firstResult = value.result.first;
               double? latitude = firstResult.latitude;
@@ -66,6 +77,10 @@ late SearchProvider searchProvider;
               // double? fetchedLongitude = searchProvider.fetchedLongitude;
               if(context.mounted) Navigator.pop(context, queryResult);
               //await fetchWeatherData(latitude, longitude);
+=======
+             await value.search(cityName);
+               Navigator.pop(context, cityName);
+>>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66
             },
               icon: const Icon(Icons.search),
               key: const Key("searchPage_search_iconButton"),)
@@ -73,4 +88,8 @@ late SearchProvider searchProvider;
         },
         ));
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66

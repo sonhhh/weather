@@ -21,13 +21,22 @@ class _RestClient implements RestClient {
   String? baseUrl;
 
   @override
+<<<<<<< HEAD
   Future<DataResponse> getSearch(String name) async {
+=======
+  Future<Result> getSearch(String cityName) async {
+>>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'name': name};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
+<<<<<<< HEAD
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<DataResponse>(Options(
+=======
+    final _result =
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Result>(Options(
+>>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -43,7 +52,11 @@ class _RestClient implements RestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
+<<<<<<< HEAD
     final value = DataResponse.fromJson(_result.data!);
+=======
+    final value = Result.fromJson(_result.data!);
+>>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66
     return value;
   }
 
