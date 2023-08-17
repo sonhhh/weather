@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather/api/data/results.dart';
 import 'package:weather/ui/home/home_provider.dart';
 import 'package:weather/ui/search/search.dart';
 import 'package:weather/ui/setting/setting.dart';
@@ -48,9 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   return  Search();
                 },)).then((value) {
                   if(value != null){
-                    List<Result> searchResults = value;
+                    (double? lat, double? lon, String? city) searchResults = value;
                    provider.update(searchResults);
                     print(value);
+                   provider.fetchWeatherData(1, 2);
+
                   }
                 });
               },
@@ -82,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 120,
                   ),
                   Text(
-                    homeProvider.result.first.name ?? '',
+                    homeProvider.result?.$3 ?? '',
                     style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -108,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       SizedBox(width: 40,),
                       Text(
-                        "35",
+                        '35',
                         style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,

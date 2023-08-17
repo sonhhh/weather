@@ -61,9 +61,10 @@ late SearchProvider searchProvider;
               print(latitude);
               double? longitude = firstResult.longitude;
               print(longitude);
+              (double? lat, double? lon, String? city) queryResult = (latitude, longitude, firstResult.name);
               // double? fetchedLatitude = searchProvider.fetchedLatitude;
               // double? fetchedLongitude = searchProvider.fetchedLongitude;
-              if(context.mounted) Navigator.pop(context, value.result);
+              if(context.mounted) Navigator.pop(context, queryResult);
               //await fetchWeatherData(latitude, longitude);
             },
               icon: const Icon(Icons.search),

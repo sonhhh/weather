@@ -9,9 +9,9 @@ import 'package:weather/ui/search/search_provider.dart';
 void main() {
   runApp(
     MultiProvider(providers: [
-      ChangeNotifierProvider(create: (context) => SearchProvider(Dio(), RestClient1(Dio()))),
-      ChangeNotifierProvider(create: (context) => HomeProvider(Dio()),)
-    ],
+      ChangeNotifierProvider(create: (context) => SearchProvider(Dio())),
+      ChangeNotifierProvider(create: (context) => HomeProvider(Dio(), RestClient1(Dio()))
+      )],
       child:  MyApp(),
     )
   );

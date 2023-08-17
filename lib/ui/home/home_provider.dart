@@ -1,18 +1,41 @@
-import 'dart:convert';
+
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:weather/api/api_search.dart';
-import 'package:weather/api/data/results.dart';
+import 'package:weather/api/data/api_latitude.dart';
+
 
 class HomeProvider with ChangeNotifier {
-  final RestClient _restClient;
-  List<Result> result = [];
 
-  HomeProvider(Dio dio) : _restClient = RestClient(dio);
+  (double? lat, double? lon, String? city)? result;
+  final RestClient1 _restClient1;
+  double? _fetchedLatitude;
+  double? _fetchedLongitude;
 
-  Future<void> update(List<Result> data) async {
+  double? get fetchedLatitude => _fetchedLatitude;
+  double? get fetchedLongitude => _fetchedLongitude;
+
+  HomeProvider(Dio dio, this._restClient1);
+   //   : _restClient1 = RestClient1(dio);
+
+  Future<void> update( (double? lat, double? lon, String? city) data) async {
     result = data;
     notifyListeners();
+  }
+  Future<void> fetchWeatherData(double latitude, double longitude)async {
+    if(latitude == null && longitude == null){
+      throw Exception('city null');
+    }
+    try{
+      final response = await _restClient1.latitude(latitude, longitude);
+      if(response != null){
+        _fetchedLatitude = latitude; // Store latitude
+        _fetchedLongitude = longitude; // Store longitude
+        notifyListeners();
+      }
+      // welcome =response;
+    }catch (e){
+      print(e);
+    }
   }
 }
