@@ -1,10 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-<<<<<<< HEAD
+
 import 'package:weather/api/data/api_latitude.dart';
-=======
->>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66
 import 'package:weather/ui/home/home_provider.dart';
 import 'package:weather/ui/home/home_screen.dart';
 import 'package:weather/ui/search/search_provider.dart';
@@ -12,17 +10,10 @@ import 'package:weather/ui/search/search_provider.dart';
 void main() {
   runApp(
     MultiProvider(providers: [
-<<<<<<< HEAD
       ChangeNotifierProvider(create: (context) => SearchProvider(Dio())),
       ChangeNotifierProvider(create: (context) => HomeProvider(Dio(), RestClient1(Dio()))
       )],
       child:  MyApp(),
-=======
-      ChangeNotifierProvider(create: (context) => SearchProvider(Dio()),),
-      ChangeNotifierProvider(create: (context) => HomeProvider(Dio()),)
-    ],
-      child: MyApp(),
->>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66
     )
   );
 }

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-<<<<<<< HEAD
+
 import 'package:weather/api/data/results.dart';
 
-=======
->>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66
 import 'package:weather/ui/search/search_provider.dart';
 
 class Search extends StatefulWidget {
@@ -17,17 +15,14 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   TextEditingController textController = TextEditingController();
 late SearchProvider searchProvider;
+  bool hasPopped = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     searchProvider = Provider.of<SearchProvider>(context, listen: false);
-<<<<<<< HEAD
     textController = TextEditingController();
-=======
->>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66
   }
-
   @override
   void dispose() {
     // TODO: implement dispose
@@ -53,10 +48,9 @@ late SearchProvider searchProvider;
                     child: TextField(
                       controller: textController,
                       onChanged: (searchKey) {
-<<<<<<< HEAD
-=======
+
                    //     searchProvider.search(searchKey);
->>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66
+
                       },
                       decoration: const InputDecoration(
                           labelText: 'City'
@@ -65,22 +59,15 @@ late SearchProvider searchProvider;
                 )),
             IconButton(onPressed: () async {
               String cityName = textController.text;
-<<<<<<< HEAD
+
               await value.search(cityName);
               Result firstResult = value.result.first;
               double? latitude = firstResult.latitude;
-              print(latitude);
               double? longitude = firstResult.longitude;
-              print(longitude);
               (double? lat, double? lon, String? city) queryResult = (latitude, longitude, firstResult.name);
-              // double? fetchedLatitude = searchProvider.fetchedLatitude;
-              // double? fetchedLongitude = searchProvider.fetchedLongitude;
-              if(context.mounted) Navigator.pop(context, queryResult);
-              //await fetchWeatherData(latitude, longitude);
-=======
-             await value.search(cityName);
-               Navigator.pop(context, cityName);
->>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66
+              if(context.mounted){
+                hasPopped = true;
+                Navigator.pop(context, queryResult);}
             },
               icon: const Icon(Icons.search),
               key: const Key("searchPage_search_iconButton"),)
@@ -88,8 +75,6 @@ late SearchProvider searchProvider;
         },
         ));
   }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> b2d54a02ed47de4ac475c1876e734f6a7462ea66
+
